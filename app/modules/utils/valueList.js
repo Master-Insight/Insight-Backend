@@ -74,5 +74,7 @@ export const FRAMEWORKS = {
   'No Code': ['Webflow', 'Bubble']
 };
 
-export const PROJECT_STATUS = ['new', 'pending', 'in-progress', 'to review', 'completed', 'archived']
-export const PROJECT_PRORITY = ['low', 'medium', 'high', 'urgent']
+// export const PROJECT_STATUS = ['new', 'pending', 'in-progress', 'to review', 'completed', 'archived']
+// export const PROJECT_PRORITY = ['low', 'medium', 'high', 'urgent']
+export const PROJECT_STATUS = ['nueva', 'pendiente', 'en progreso', 'a revisar', 'completada', 'archivada']
+export const PROJECT_PRORITY = ['baja', 'media', 'alta', 'urgente']

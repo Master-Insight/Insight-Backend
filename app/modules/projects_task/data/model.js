@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose'
 import { PROJECT_PRORITY, PROJECT_STATUS } from '../../utils/valueList.js';
+import Comments from '../../projects_comments/data/model.js'
 
 const thisSchema = new Schema({
   // basic properties
@@ -11,10 +12,9 @@ const thisSchema = new Schema({
 
   // aditional properties
   assignedTo: [{ type: Schema.Types.ObjectId, ref: 'users' }],
-  status: { type: String, enum: PROJECT_STATUS, default: 'new' },
-  teststatus: { type: String, enum: PROJECT_STATUS, default: 'pending' },
-  priority: { type: String, enum: PROJECT_PRORITY, default: 'medium' },
-  comments: [{ type: Schema.Types.ObjectId, ref: 'projects_comments', required: true }],
+  status: { type: String, enum: PROJECT_STATUS, default: 'nueva' },
+  teststatus: { type: String, enum: PROJECT_STATUS, default: 'pendiente' },
+  priority: { type: String, enum: PROJECT_PRORITY, default: 'media' },
 
   // data of conection
   created: { type: Date, default: Date.now, immutable: true, },
@@ -27,6 +27,7 @@ const thisSchema = new Schema({
   },
 })
 
+// Middleware: Al buscar tareas, las relacionadas con los usuarios
 thisSchema.pre('find', function (next) {
   this
     .populate({
@@ -35,6 +36,16 @@ thisSchema.pre('find', function (next) {
     })
   next();
 })
+
+// Middleware: Al eliminar una tarea, elimina los comentarios relacionados
+thisSchema.pre('findOneAndDelete', async function (next) {
+  const taskId = this.getQuery()['_id'];
+
+  // Eliminar comentarios relacionados
+  await Comments.deleteMany({ taskId });
+
+  next();
+});
 
 const dataModel = model('projects_task', thisSchema)
 

@@ -17,6 +17,9 @@ const validSchema = {
       projectId: Joi.string().hex().length(24).required(),
       parentTaskId: Joi.string().hex().length(24).optional(),
       assignedTo: Joi.array().items(Joi.string().hex().length(24)).optional(),
+      status: Joi.string().valid(...PROJECT_STATUS).optional(),
+      teststatus: Joi.string().valid(...PROJECT_STATUS).optional(),
+      priority: Joi.string().valid(...PROJECT_PRORITY).optional(),
     }),
   },
   update: {

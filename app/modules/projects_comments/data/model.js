@@ -8,8 +8,7 @@ const thisSchema = new Schema({
 
   // data of conection
   created: { type: Date, default: Date.now, immutable: true, },
-  updated: { type: Date, default: Date.now, },
-  connection: { type: Date, default: Date.now, },
+  updated: { type: Date, default: Date.now, }
 }, {
   timestamps: {
     createdAt: 'created',

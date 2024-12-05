@@ -7,14 +7,15 @@ import { celebrate } from "celebrate";
 const router = Router();
 const controller = new Controller()
 
-// http://localhost:8080/v1/projects/comments/
+// http://localhost:8080/v1/projects/tasks/
 
 // sesions
 router
-.get   ('/',       handleAuth('admin'), controller.get)
-.get   ('/:eid',   handleAuth(users), controller.getById)
-.post  ('/',       handleAuth(users), controller.create)
-.put   ('/:eid',   handleAuth(users), controller.updateId)
-.delete('/:eid',   handleAuth(users), controller.deleteId)
+.get   ('/comments',       handleAuth('admin'), controller.get)
+.get   ('/:tid/comments',       handleAuth('admin'), controller.get)
+.get   ('/:tid/comments/:eid',   handleAuth(users), controller.getById)
+.post  ('/:tid/comments/',       handleAuth(users), controller.create)
+.put   ('/comments/:eid',   handleAuth(users), controller.updateId)
+.delete('/comments/:eid',   handleAuth(users), controller.deleteId)
 
 export default router

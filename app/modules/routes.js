@@ -21,7 +21,7 @@ router.use('/v1/auth/', authRouter)
 router.use('/v1/contributions/', contributionsRouter)
 router.use('/v1/projects/', projectsRouter)
 router.use('/v1/projects/', projectsTaskRouter) // adentro se agrega "task"
-router.use('/v1/projects/comments/', projectsCommentsRouter)
+router.use('/v1/projects/tasks/', projectsCommentsRouter)
 
 router.use('/v1/values/', valuesRouter)
 router.use('/v1/experiences/', experiencesRouter)

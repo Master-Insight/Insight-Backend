@@ -11,11 +11,11 @@ const controller = new Controller()
 
 // sesions
 router
-.get   ('/comments',       handleAuth('admin'), controller.get)
-.get   ('/:tid/comments',       handleAuth('admin'), controller.get)
-.get   ('/:tid/comments/:eid',   handleAuth(users), controller.getById)
-.post  ('/:tid/comments/',       handleAuth(users), controller.create)
-.put   ('/comments/:eid',   handleAuth(users), controller.updateId)
-.delete('/comments/:eid',   handleAuth(users), controller.deleteId)
+.get   ('/comments',         handleAuth('admin'), controller.get)
+.get   ('/:tid/comments',      handleAuth(users), celebrate(validSchema.get),      controller.get)
+.get   ('/:tid/comments/:eid', handleAuth(users), celebrate(validSchema.getById),  controller.getById)
+.post  ('/:tid/comments/',     handleAuth(users), celebrate(validSchema.create),   controller.create)
+.put   ('/comments/:eid',      handleAuth(users), celebrate(validSchema.updateId), controller.updateId)
+.delete('/comments/:eid',      handleAuth(users), celebrate(validSchema.deleteId), controller.deleteId)
 
 export default router

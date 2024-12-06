@@ -7,9 +7,8 @@ const validSchema = {
       tid: Joi.string().hex().length(24).required(), // Validación para el ID de la tarea
     }),
     [Segments.BODY]: Joi.object().keys({
-      title: Joi.string().max(250).required(),
       content: Joi.string().optional(),
-      users: Joi.array().items(Joi.string().hex().length(24)).required(),
+      user: Joi.string().hex().length(24).required(),
       comments: Joi.array().items(Joi.object()).optional().allow('')
     }),
   },
@@ -35,9 +34,8 @@ const validSchema = {
       eid: Joi.string().hex().length(24).required(),
     }),
     [Segments.BODY]: Joi.object().keys({
-      title: Joi.string().max(250).optional(),
       content: Joi.string().optional(),
-      users: Joi.array().items(Joi.string().hex().length(24)).optional(),
+      user: Joi.string().hex().length(24).optional(),
       comments: Joi.array().items(Joi.object()).optional().allow(''),
     }),
   },

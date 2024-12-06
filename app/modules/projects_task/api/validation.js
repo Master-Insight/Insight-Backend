@@ -34,7 +34,6 @@ const validSchema = {
       status: Joi.string().valid(...PROJECT_STATUS).optional(),
       teststatus: Joi.string().valid(...PROJECT_STATUS).optional(),
       priority: Joi.string().valid(...PROJECT_PRORITY).optional(),
-      comments: Joi.array().items(Joi.string().hex().length(24)).optional(),
     }),
   },
 }

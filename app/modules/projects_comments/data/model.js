@@ -19,7 +19,7 @@ const thisSchema = new Schema({
 thisSchema.pre('find', function (next) {
   this
     .populate({
-      path: 'assignedTo',
+      path: 'user',
       select: '_id full_name'
     })
   next();

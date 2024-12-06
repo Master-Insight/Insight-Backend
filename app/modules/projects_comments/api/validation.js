@@ -8,7 +8,7 @@ const validSchema = {
     }),
     [Segments.BODY]: Joi.object().keys({
       title: Joi.string().max(250).required(),
-      description: Joi.string().optional(),
+      content: Joi.string().optional(),
       users: Joi.array().items(Joi.string().hex().length(24)).required(),
       comments: Joi.array().items(Joi.object()).optional().allow('')
     }),
@@ -36,7 +36,7 @@ const validSchema = {
     }),
     [Segments.BODY]: Joi.object().keys({
       title: Joi.string().max(250).optional(),
-      description: Joi.string().optional(),
+      content: Joi.string().optional(),
       users: Joi.array().items(Joi.string().hex().length(24)).optional(),
       comments: Joi.array().items(Joi.object()).optional().allow(''),
     }),

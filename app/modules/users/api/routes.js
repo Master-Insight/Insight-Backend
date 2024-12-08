@@ -12,10 +12,11 @@ const router = Router();
 router
   // * Public
   .get('/associates', controller.getPublicAssociates)
-  .get('/associatesselective', controller.getPublicAssociatesLSelective)
+  .get('/associatesselective', controller.getAssociatesLSelective)
   .get('/associate/:username', controller.getAssociate)
 
   // * User
+  // .get('/listassociates', controller.getlistAssociates)
   .get('/current', authMiddleware(), securityMiddleware(users), controller.getUserSession)
   .put('/current/update', authMiddleware(), securityMiddleware(users), controller.currentUpdate)
   .put('/current/uploadphoto',

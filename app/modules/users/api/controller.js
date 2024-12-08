@@ -11,28 +11,28 @@ export default class Controller extends MongoController {
 
   getUserSession = (req, res) => res.sendSuccess(req.user)
 
-  getPublicAssociates =  async (req, res, next) => {
+  getPublicAssociates = async (req, res, next) => {
     try {
-      const associates = await this.service.get({public: true}) 
+      const associates = await this.service.get({ public: true })
       res.sendSuccess(associates)
     } catch (error) {
       next(error)
     }
   }
 
-  getPublicAssociatesLSelective =  async (req, res, next) => {
+  getAssociatesLSelective = async (req, res, next) => {
     try {
-      const associates = await this.service.get({public: true},  { _id: 1, full_name: 1, email: 1 }) 
+      const associates = await this.service.get({}, { _id: 1, full_name: 1, email: 1 })
       res.sendSuccess(associates)
     } catch (error) {
       next(error)
     }
   }
 
-  getAssociate =  async (req, res, next) => {
+  getAssociate = async (req, res, next) => {
     try {
       const { username } = req.params
-      const associate = await this.service.getBy({username: username}) 
+      const associate = await this.service.getBy({ username: username })
       res.sendSuccess(associate)
     } catch (error) {
       next(error)
@@ -40,11 +40,11 @@ export default class Controller extends MongoController {
   }
 
   currentUpdate = async (req, res, next) => {
-    try{
+    try {
       let { updateUser } = req.body
       const updatedUser = await this.service.update(req.user._id, updateUser)
       res.sendSuccess(updatedUser)
-    } catch(error) {
+    } catch (error) {
       next(error)
     }
   }
@@ -71,7 +71,7 @@ export default class Controller extends MongoController {
           if (error) return next(error);
           const secureUrl = result.secure_url;
           await this.service.updatePhoto(req.user._id, secureUrl)
-          res.sendSuccess({photoUrl: secureUrl}, "Photo uploaded")
+          res.sendSuccess({ photoUrl: secureUrl }, "Photo uploaded")
         }).end(req.file.buffer);
 
       } else {
@@ -80,7 +80,7 @@ export default class Controller extends MongoController {
         const secureUrl = result.secure_url;
         await this.service.updatePhoto(req.user._id, secureUrl);
         fs.unlinkSync(filePath);
-        res.sendSuccess({photoUrl: secureUrl}, "Photo uploaded")
+        res.sendSuccess({ photoUrl: secureUrl }, "Photo uploaded")
       }
 
     } catch (error) {

@@ -22,5 +22,7 @@ router
     authMiddleware(), securityMiddleware(users), controller.updateId)
   .delete('/id/:eid',
     authMiddleware(), securityMiddleware(users), controller.deleteId)
+  .get('/get/usersasigned',
+    authMiddleware(), securityMiddleware(users), controller.getUsersAssigned)
 
 export default router

@@ -21,14 +21,15 @@ const thisSchema = new Schema({
 })
 
 // Middleware: Al buscar un proyecto, se añaden los datos del usuario relacionado
-thisSchema.pre('find', function (next) {
-  this
-    .populate({
-      path: 'users',
-      select: '_id full_name'
-    })
+function populateUsers(next) {
+  this.populate({
+    path: 'users',
+    select: '_id full_name'
+  });
   next();
-})
+}
+thisSchema.pre('find', populateUsers);
+thisSchema.pre('findOne', populateUsers);
 
 // Middleware: Al eliminar un proyecto, elimina las tareas relacionadas
 thisSchema.pre('findOneAndDelete', async function (next) {

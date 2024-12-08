@@ -43,3 +43,44 @@ export default class Controller extends MongoController {
     }
   };
 }
+/*
+OPCION 1:
+  $project: {
+    _id: 1,
+    full_name: { $arrayElemAt: ['$userDetails.full_name', 0] }
+  }
+  
+OBTIENE:
+  [
+    {
+      "_id": "64d7b3e8a5c4ef0012ab1234",
+      "full_name": "John Doe"
+    },
+    {
+      "_id": "64d7b3e8a5c4ef0012ab5678",
+      "full_name": "Jane Smith"
+    }
+  ]
+*/
+
+
+/*
+OPCION 2:
+  $project: {
+    _id: 0, // Excluimos el `_id` de la salida
+    label: { $arrayElemAt: ['$userDetails.full_name', 0] },
+    value: { $toString: '$_id' } // Convertimos `_id` en string
+  }
+  
+OBTIENE:
+  [
+    {
+      "label": "John Doe",
+      "value": "64d7b3e8a5c4ef0012ab1234"
+    },
+    {
+      "label": "Jane Smith",
+      "value": "64d7b3e8a5c4ef0012ab5678"
+    }
+  ]
+*/

@@ -9,6 +9,8 @@ const thisSchema = new Schema({
   users: [{ type: Schema.Types.ObjectId, ref: 'users', required: true }],
 
   // aditional properties
+  deploy: { type: String },
+  repository: { type: String },
 
   // data of conection
   created: { type: Date, default: Date.now, immutable: true, },

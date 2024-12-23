@@ -17,7 +17,15 @@ dotenv.config()
 // App initialization ------------------------------
 const app = express();
 // app.use(cors({origin:configEnv.cors_origin})); se habilitica todo para app mobiles
-app.use(cors()); // Permitir cualquier origen
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || origin === 'null') {
+      callback(null, true); // Permitir solicitudes sin origen (mobiles)
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 
 // App Configurations --------------------------------
 const port = process.env.PORT || 8080;

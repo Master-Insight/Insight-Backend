@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'node:path'
-import configEnv from '../pkg/services/env/env.js';
+// import configEnv from '../pkg/services/env/env.js';
 import cors from 'cors'
 import __dirname from '../pkg/utilities/dirname.js';
 import { connectDb } from '../pkg/services/db/connectMongo.js';
@@ -16,7 +16,8 @@ dotenv.config()
 
 // App initialization ------------------------------
 const app = express();
-app.use(cors({origin:configEnv.cors_origin}));
+// app.use(cors({origin:configEnv.cors_origin})); se habilitica todo para app mobiles
+app.use(cors()); // Permitir cualquier origen
 
 // App Configurations --------------------------------
 const port = process.env.PORT || 8080;
@@ -36,7 +37,7 @@ initializePassport()
 app.use(passport.initialize())
 
 // App Routes --------------------------------
-app.get('/', (req, res) => { res.send({prueba: "Hello backend"}) });
+app.get('/', (req, res) => { res.send({ prueba: "Hello backend" }) });
 app.use('/', appRouter);
 
 // Error Handling Middleware --------------------------------

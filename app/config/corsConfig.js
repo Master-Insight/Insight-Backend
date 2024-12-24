@@ -1,4 +1,4 @@
-import configEnv from "../pkg/services/env/env";
+import configEnv from "../pkg/services/env/env.js";
 const allowedOrigins = configEnv.cors_origin;
 
 

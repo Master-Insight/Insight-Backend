@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'node:path'
-// import configEnv from '../pkg/services/env/env.js';
+import configEnv from '../pkg/services/env/env.js';
 import cors from 'cors'
 import __dirname from '../pkg/utilities/dirname.js';
 import { connectDb } from '../pkg/services/db/connectMongo.js';
@@ -17,14 +17,21 @@ dotenv.config()
 // App initialization ------------------------------
 const app = express();
 // app.use(cors({origin:configEnv.cors_origin})); se habilitica todo para app mobiles
+// en app mobile, cambiar "localhost" por la "IP"
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || origin === 'null') {
-      callback(null, true); // Permitir solicitudes sin origen (mobiles)
+    // console.log('Origen de la solicitud:', origin); // Log para identificar el origen / depuracion
+
+    // Permitir solicitudes desde la web y solicitudes sin origen (móvil)
+    const allowedOrigins = configEnv.cors_origin;
+
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
-  }
+  },
+  // credentials: true, // Permitir cookies/credenciales si es necesario
 }));
 
 // App Configurations --------------------------------

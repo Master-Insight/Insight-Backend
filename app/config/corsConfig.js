@@ -9,7 +9,7 @@ const allowedOrigins = configEnv.cors_origin;
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // console.log('Origen de la solicitud:', origin); // Log para identificar el origen / depuracion
+    console.log('Origen de la solicitud:', origin); // Log para identificar el origen / depuracion
 
     // Permitir solicitudes desde la web y solicitudes sin origen (móvil)
     if (!origin || allowedOrigins.includes(origin)) {

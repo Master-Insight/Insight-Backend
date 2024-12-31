@@ -1,6 +1,5 @@
 import express from 'express';
 import path from 'node:path'
-import configEnv from '../pkg/services/env/env.js';
 import cors from 'cors'
 import __dirname from '../pkg/utilities/dirname.js';
 import { connectDb } from '../pkg/services/db/connectMongo.js';
@@ -11,12 +10,14 @@ import passport from 'passport';
 import appRouter from '../modules/routes.js'
 import handleErrors from '../pkg/middleware/handleErrors.js';
 import dotenv from 'dotenv';
+import corsOptions from '../config/corsConfig.js';
 
 dotenv.config()
 
 // App initialization ------------------------------
 const app = express();
-app.use(cors({origin:configEnv.cors_origin}));
+// en app mobile, cambiar "localhost" por la "IP"
+app.use(cors(corsOptions));
 
 // App Configurations --------------------------------
 const port = process.env.PORT || 8080;
@@ -36,7 +37,7 @@ initializePassport()
 app.use(passport.initialize())
 
 // App Routes --------------------------------
-app.get('/', (req, res) => { res.send({prueba: "Hello backend"}) });
+app.get('/', (req, res) => { res.send({ prueba: "Hello backend" }) });
 app.use('/', appRouter);
 
 // Error Handling Middleware --------------------------------

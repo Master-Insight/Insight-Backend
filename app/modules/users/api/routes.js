@@ -11,7 +11,8 @@ const router = Router();
 
 router
   // * Public
-  .get('/associates', controller.getPublicAssociates)
+  .get('/associates', controller.getAssociates)
+  .get('/clients', controller.getClients)
   .get('/associatesselective', controller.getAssociatesLSelective)
   .get('/associate/:username', controller.getAssociate)
 

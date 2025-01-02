@@ -11,12 +11,25 @@ export default class Controller extends MongoController {
 
   getUserSession = (req, res) => res.sendSuccess(req.user)
 
-  getPublicAssociates = async (req, res, next) => {
+  getAssociates = async (req, res, next) => {
     try {
-      const associates = await this.service.get({ public: true })
-      res.sendSuccess(associates)
+      const filter = { ...req.query };
+      filter.client = false
+      const elements = await this.service.get(filter);
+      res.sendSuccessOrNotFound(elements);
     } catch (error) {
-      next(error)
+      next(error);
+    }
+  }
+
+  getClients = async (req, res, next) => {
+    try {
+      const filter = { ...req.query };
+      filter.client = true
+      const elements = await this.service.get(filter);
+      res.sendSuccessOrNotFound(elements);
+    } catch (error) {
+      next(error);
     }
   }
 

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import serviceRouter from "../modules/services/api/routes.js";
 import usersRouter from "../modules/users/api/routes.js";
 import authRouter from "../modules/auth/api/routes.js";
 import contributionsRouter from "../modules/contributions/api/routes.js";
@@ -15,6 +16,8 @@ import AppError from "../../app/pkg/errors/AppError.js";
 const router = Router()
 
 // http://localhost:8080/
+
+router.use('/v1/services/', serviceRouter)
 
 router.use('/v1/users/', usersRouter)
 router.use('/v1/auth/', authRouter)

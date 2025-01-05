@@ -1,37 +1,38 @@
-import { Schema, model} from 'mongoose'
+import { Schema, model } from 'mongoose'
 import { DOCTYPE, ROLES, } from '../../utils/valueList.js';
 
 const userSchema = new Schema({
   // basic properties
-  given_name:  { type: String,   required: true, maxLength: 50 },
-  family_name: { type: String,   required: true, maxLength: 50 },
-  full_name:   { type: String,   },
-  username:    { type: String,   unique: true  },
-  email:       { type: String,   required: true, match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Debe completar un email valido'], unique: true },
-  password:    { type: String,   required: true },
-  role:        { type: String,   default: "User", enum: ROLES,},
-  document:    { type: String,   maxLength: 15 },
-  documenttype:{ type: String,   enum: DOCTYPE },
+  given_name: { type: String, required: true, maxLength: 50 },
+  family_name: { type: String, required: true, maxLength: 50 },
+  full_name: { type: String, },
+  username: { type: String, unique: true },
+  email: { type: String, required: true, match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Debe completar un email valido'], unique: true },
+  password: { type: String, required: true },
+  role: { type: String, default: "User", enum: ROLES, },
+  document: { type: String, maxLength: 15 },
+  documenttype: { type: String, enum: DOCTYPE },
+  client: { type: Boolean, default: false },
 
   // contact info
-  phone:       { type: String, maxLength: 20   },
+  phone: { type: String, maxLength: 20 },
 
   // aditional properties
-  photo:               String,
-  bio:                 String,
-  birthday:            Date,
-  public:      { type: Boolean,   default: true},
+  photo: String,
+  bio: String,
+  birthday: Date,
+  public: { type: Boolean, default: true },
 
   // external Auth
-  linkedinId:          String,
-  linkedinVerified:    Boolean,
+  linkedinId: String,
+  linkedinVerified: Boolean,
   linkedinAccessToken: String,
   linkedinTokenExpiry: Number,
-  
+
   // data of conection
-  created:     { type: Date,   default: Date.now,  immutable: true, },
-  updated:     { type: Date,   default: Date.now,  },
-  connection:  { type: Date,   default: Date.now,  },
+  created: { type: Date, default: Date.now, immutable: true, },
+  updated: { type: Date, default: Date.now, },
+  connection: { type: Date, default: Date.now, },
 }, {
   timestamps: {
     createdAt: 'created',
@@ -40,7 +41,7 @@ const userSchema = new Schema({
 })
 
 // Middleware que se ejecuta antes de guardar el documento
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
   if (!this.username && this._id) {
     this.username = `${this.given_name}_${this._id.toString()}`.toLowerCase();
   }
@@ -59,7 +60,7 @@ userSchema.pre('save', function(next) {
 //   next();
 // });
 
-userSchema.methods.toJSON = function() {
+userSchema.methods.toJSON = function () {
   const user = this.toObject();
   delete user.password;
   return user;

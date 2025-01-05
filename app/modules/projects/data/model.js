@@ -11,14 +11,15 @@ const thisSchema = new Schema({
   // aditional properties
   deploy: { type: String },
   repository: { type: String },
-
+  services: [{ type: Schema.Types.ObjectId, ref: 'service' }],
+-
   // data of conection
   created: { type: Date, default: Date.now, immutable: true, },
   updated: { type: Date, default: Date.now, }
 }, {
   timestamps: {
     createdAt: 'created',
-    updatedAt: 'updated'
+      updatedAt: 'updated'
   },
 })
 

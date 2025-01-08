@@ -54,6 +54,9 @@ const thisSchema = new Schema({
     type: String, required: true,
     enum: ['low', 'medium', 'high'],
   },
+  active: {
+    type: Boolean, default: true,
+  },
 
   // data of conection
   created: { type: Date, default: Date.now, immutable: true, },

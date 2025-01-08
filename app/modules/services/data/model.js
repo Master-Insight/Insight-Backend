@@ -49,12 +49,10 @@ const thisSchema = new Schema({
   serviceType: {
     type: String, required: true,
     enum: ['web_static', 'web_dynamic', 'app_web', 'app_mobile', 'data_analysis'],
-
   },
   complexityLevel: {
     type: String, required: true,
     enum: ['low', 'medium', 'high'],
-
   },
 
   // data of conection

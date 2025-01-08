@@ -57,6 +57,7 @@ const serviceValidationSchema = Joi.object({
       'any.only': 'El nivel de complejidad debe ser uno de los valores permitidos: low, medium, high.',
       'any.required': 'El nivel de complejidad es obligatorio.',
     }),
+  active: Joi.bool(),
 });
 
 // Validaciones específicas para las rutas

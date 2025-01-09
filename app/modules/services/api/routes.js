@@ -14,8 +14,8 @@ const controller = new Controller()
 router
   .get('/',
     securityMiddleware(isPublic), controller.get)
-  .get('/:eid',
-    securityMiddleware(isPublic), controller.getById)
+  .get('/:slug',
+    securityMiddleware(isPublic), controller.getBySlug)
   .post('/',
     authMiddleware(), securityMiddleware(admin), validateCreateService, controller.create)
   .put('/:eid',

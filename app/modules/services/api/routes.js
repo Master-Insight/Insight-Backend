@@ -13,9 +13,9 @@ const controller = new Controller()
 // sesions
 router
   .get('/',
-    authMiddleware(), securityMiddleware(isPublic), controller.get)
+    securityMiddleware(isPublic), controller.get)
   .get('/:eid',
-    authMiddleware(), securityMiddleware(isPublic), controller.getById)
+    securityMiddleware(isPublic), controller.getById)
   .post('/',
     authMiddleware(), securityMiddleware(admin), validateCreateService, controller.create)
   .put('/:eid',

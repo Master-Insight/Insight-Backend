@@ -16,7 +16,7 @@ const thisSchema = new Schema({
   media: [{ type: String }], // URLs o paths de recursos multimedia relacionados con la muestra
   deploy: { type: String },
   repository: { type: String },
-  services: [{ type: Schema.Types.ObjectId, ref: 'service' }],
+  services: [{ type: Schema.Types.ObjectId, ref: 'services' }],
 
   // Datos de conexión
   created: { type: Date, default: Date.now, immutable: true },
@@ -27,6 +27,18 @@ const thisSchema = new Schema({
     updatedAt: 'updated',
   },
 })
+
+// Middleware para popular las relaciones
+function populateRelated(next) {
+  this.populate({ path: 'project', select: 'title description' });
+  this.populate({ path: 'users', select: 'full_name email' });
+  this.populate({ path: 'services', select: 'name description' });
+  next();
+}
+
+thisSchema.pre('find', populateRelated);
+thisSchema.pre('findOne', populateRelated);
+thisSchema.pre('findById', populateRelated);
 
 const dataModel = model('samples', thisSchema)
 
